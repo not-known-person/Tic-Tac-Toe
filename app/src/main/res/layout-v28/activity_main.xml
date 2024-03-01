@@ -8,11 +8,16 @@
     android:layout_gravity="center"
     android:orientation="vertical"
     android:id="@+id/primary_layout" >
+    <androidx.appcompat.widget.AppCompatTextView
+        android:text="Total Attempts :"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_gravity="center" android:textSize="24sp" android:textStyle="bold"
+        android:layout_marginBottom="5dp" />
     <androidx.appcompat.widget.AppCompatTextView android:id="@+id/moves"
         android:text="0"
         android:layout_width="wrap_content" android:layout_height="wrap_content"
         android:layout_gravity="center" android:textSize="24sp" android:textStyle="bold"
-        android:layout_marginBottom="30dp" />
+        android:layout_marginBottom="20dp" />
 <GridLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -21,32 +26,31 @@
     android:id="@+id/secondary_layout"
     >
     <androidx.appcompat.widget.AppCompatButton android:layout_width="80dp"
-        android:layout_height="80dp" android:textSize="25dp"
-        android:onClick="Check" />
-    <androidx.appcompat.widget.AppCompatButton android:layout_width="80dp"
-        android:layout_height="80dp" android:textSize="25dp"
-        android:onClick="Check" />
-    <androidx.appcompat.widget.AppCompatButton android:layout_width="80dp"
-        android:layout_height="80dp" android:textSize="25dp"
+        android:layout_height="80dp" android:textSize="25sp"
         android:onClick="Check" />
     <androidx.appcompat.widget.AppCompatButton android:layout_width="80dp"
         android:layout_height="80dp" android:textSize="25sp"
         android:onClick="Check" />
     <androidx.appcompat.widget.AppCompatButton android:layout_width="80dp"
-        android:layout_height="80dp" android:textSize="25dp"
+        android:layout_height="80dp" android:textSize="25sp"
         android:onClick="Check" />
     <androidx.appcompat.widget.AppCompatButton android:layout_width="80dp"
-        android:layout_height="80dp" android:textSize="25dp"
+        android:layout_height="80dp" android:textSize="25sp"
         android:onClick="Check" />
     <androidx.appcompat.widget.AppCompatButton android:layout_width="80dp"
-        android:layout_height="80dp" android:textSize="25dp"
+        android:layout_height="80dp" android:textSize="25sp"
         android:onClick="Check" />
     <androidx.appcompat.widget.AppCompatButton android:layout_width="80dp"
-        android:layout_height="80dp" android:textSize="25dp"
+        android:layout_height="80dp" android:textSize="25sp"
         android:onClick="Check" />
     <androidx.appcompat.widget.AppCompatButton android:layout_width="80dp"
-        android:layout_height="80dp" android:textSize="25dp"
+        android:layout_height="80dp" android:textSize="25sp"
+        android:onClick="Check" />
+    <androidx.appcompat.widget.AppCompatButton android:layout_width="80dp"
+        android:layout_height="80dp" android:textSize="25sp"
+        android:onClick="Check" />
+    <androidx.appcompat.widget.AppCompatButton android:layout_width="80dp"
+        android:layout_height="80dp" android:textSize="25sp"
         android:onClick="Check" />
 </GridLayout>
-
 </LinearLayout>
