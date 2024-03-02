@@ -1,7 +1,5 @@
 package com.example.myapplication;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,34 +23,46 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         layout = findViewById(R.id.secondary_layout);
+        setupUi();
     }
 
-    public void Check(View view) {
 
-        Button current = (Button) view;
-        current.setText(totalMoves % 2 == 0 ? "X" : "O");
-        ++totalMoves;
-        TextView moves = findViewById(R.id.moves);
-        moves.setText(String.valueOf(totalMoves));
-        int row = totalMoves % 2 == 0 ? 0 : 1 ;
-        pattern[row][(totalMoves % 2 == 0) ? (totalMoves / 2) - 1 : (totalMoves - 1) / 2] =
-                layout.indexOfChild(view) + 1;
-        if(totalMoves >= 4){
+    View.OnClickListener buttonClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Button current = (Button) view;
+            current.setText(totalMoves % 2 == 0 ? "X" : "O");
+            ++totalMoves;
+            TextView moves = findViewById(R.id.moves);
+            moves.setText(String.valueOf(totalMoves));
+            int row = totalMoves % 2 == 0 ? 0 : 1 ;
+            pattern[row][(totalMoves % 2 == 0) ? (totalMoves / 2) - 1 : (totalMoves - 1) / 2] =
+                    layout.indexOfChild(view) + 1;
+            if(totalMoves >= 4){
                 int[] patterns = pattern[row];
-                Log.d("patt" , Arrays.toString(patterns));
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                boolean isMatched = Arrays.stream(positivePatterns)
-                        .anyMatch(array -> Arrays.stream(array).allMatch(val -> Arrays.stream(patterns).anyMatch(x -> x == val)));
-                if (isMatched) {
-                    Toast.makeText(getApplicationContext(), (row == 0 ? "O" :
-                            "X") + " won", Toast.LENGTH_SHORT).show();
-                    for (int i = 0; i < layout.getChildCount(); i++) {
-                        Button child = (Button) layout.getChildAt(i);
-                        child.setText("");
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    boolean isMatched = Arrays.stream(positivePatterns)
+                            .anyMatch(array -> Arrays.stream(array).allMatch(val -> Arrays.stream(patterns).anyMatch(x -> x == val)));
+                    if (isMatched) {
+                        Toast.makeText(getApplicationContext(), (row == 0 ? "O" :
+                                "X") + " won", Toast.LENGTH_SHORT).show();
+                        for (int i = 0; i < layout.getChildCount(); i++) {
+                            Button child = (Button) layout.getChildAt(i);
+                            child.setText("");
+                        }
                     }
                 }
-
             }
         }
+    };
+    private void setupUi() {
+        for (int i = 0; i < 9; i++) {
+            Button btn = new Button(this);
+            btn.getLayoutParams().height=120;
+            btn.getLayoutParams().width =120;
+            btn.setOnClickListener(buttonClickListener);
+            layout.addView(btn);
+        }
     }
+
 }

@@ -13,12 +13,18 @@
         android:layout_width="wrap_content" android:layout_height="wrap_content"
         android:layout_gravity="center" android:textSize="24sp" android:textStyle="bold"
         android:layout_marginBottom="5dp" />
-    <androidx.appcompat.widget.AppCompatTextView android:id="@+id/moves"
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/moves"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
         android:text="0"
-        android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:layout_gravity="center" android:textSize="24sp" android:textStyle="bold"
-        android:layout_marginBottom="20dp" />
-<GridLayout
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <GridLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:columnCount="3"
@@ -28,7 +34,8 @@
     <androidx.appcompat.widget.AppCompatButton android:layout_width="80dp"
         android:layout_height="80dp" android:textSize="25sp"
         android:onClick="Check" />
-    <androidx.appcompat.widget.AppCompatButton android:layout_width="80dp"
+
+        <androidx.appcompat.widget.AppCompatButton android:layout_width="80dp"
         android:layout_height="80dp" android:textSize="25sp"
         android:onClick="Check" />
     <androidx.appcompat.widget.AppCompatButton android:layout_width="80dp"
@@ -49,8 +56,14 @@
     <androidx.appcompat.widget.AppCompatButton android:layout_width="80dp"
         android:layout_height="80dp" android:textSize="25sp"
         android:onClick="Check" />
-    <androidx.appcompat.widget.AppCompatButton android:layout_width="80dp"
-        android:layout_height="80dp" android:textSize="25sp"
-        android:onClick="Check" />
-</GridLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_row="0"
+            android:layout_column="8"
+            android:onClick="Check"
+            android:textSize="25sp" />
+    </GridLayout>
+
 </LinearLayout>
