@@ -29,6 +29,7 @@ public class MainActivity2 extends AppCompatActivity {
         XTimer = findViewById(R.id.X_Timer);
         OTimer = findViewById(R.id.O_Timer);
         setupUi();
+//        setTimer(totalMoves % 2 == 0);
     }
 
         View.OnClickListener buttonClickListener = new View.OnClickListener() {
@@ -37,7 +38,7 @@ public class MainActivity2 extends AppCompatActivity {
             Button current = (Button) view;
             ++totalMoves;
             boolean isZero = totalMoves % 2 == 0;
-            current.setText(totalMoves % 2 == 0 ? "X" : "O");
+            current.setText(isZero ? "X" : "O");
             try {
                 setTimer(isZero);
             }catch(Exception e){
@@ -71,7 +72,7 @@ public class MainActivity2 extends AppCompatActivity {
             countDownTimer.cancel();
 
         }
-       countDownTimer =  new CountDownTimer(30000,1000) {
+       countDownTimer =  new CountDownTimer(5000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 String timerText = String.format("%02d:%02d", millisUntilFinished / 1000 / 60, millisUntilFinished / 1000 % 60);
@@ -92,7 +93,10 @@ public class MainActivity2 extends AppCompatActivity {
 
     private void autoSelect() {
         Random random = new Random();
-        int i = random.nextInt(10 - 1 + 1) + 1;
+        int index = random.nextInt(8 - 1 + 1) + 1;
+        Log.d("index" , String.valueOf(index));
+        Button child = (Button) layout.getChildAt(index);
+        if(child.getText() == "") child.performClick(); else  autoSelect();
     }
 
 
@@ -100,8 +104,9 @@ public class MainActivity2 extends AppCompatActivity {
             for (int i = 0; i < 9; i++) {
                 Button btn = new Button(this);
                 btn.setLayoutParams(new GridLayout.LayoutParams());
-                btn.getLayoutParams().height = 180;
-                btn.getLayoutParams().width = 180;
+                btn.getLayoutParams().height = 300;
+                btn.getLayoutParams().width = 300;
+                btn.setTextSize(40);
                 btn.setOnClickListener(buttonClickListener);
                 layout.addView(btn);
             }

@@ -7,11 +7,13 @@
     android:orientation="vertical"
     android:gravity="center"
     tools:context=".MainActivity2"
+    android:background="@drawable/samplebg"
     >
 <androidx.appcompat.widget.AppCompatTextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" android:text="" android:id="@+id/X_Timer"
-    android:rotation="180" android:textSize="24sp" android:textStyle="bold" >
+    android:rotation="180" android:textSize="24sp" android:textStyle="bold"
+    android:layout_marginBottom="60dp" >
 </androidx.appcompat.widget.AppCompatTextView>
     <GridLayout
         android:layout_width="wrap_content"
@@ -22,6 +24,6 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" android:text="" android:textSize="24sp"
-        android:textStyle="bold" android:id="@+id/O_Timer" >
+        android:textStyle="bold" android:id="@+id/O_Timer" android:layout_marginTop="60dp" >
     </androidx.appcompat.widget.AppCompatTextView>
 </androidx.appcompat.widget.LinearLayoutCompat>
