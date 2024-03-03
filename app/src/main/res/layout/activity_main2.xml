@@ -10,12 +10,8 @@
     >
 <androidx.appcompat.widget.AppCompatTextView
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Tic Tak Toe"
-    android:layout_gravity="center"
-    android:textSize="24sp"
-    android:textStyle="bold"
-    android:layout_marginBottom="30dp" >
+    android:layout_height="wrap_content" android:text="" android:id="@+id/X_Timer"
+    android:rotation="180" android:textSize="24sp" android:textStyle="bold" >
 </androidx.appcompat.widget.AppCompatTextView>
     <GridLayout
         android:layout_width="wrap_content"
@@ -23,4 +19,9 @@
         android:columnCount="3"
         android:layout_gravity="center"
         android:id="@+id/secondary_layout" />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:text="" android:textSize="24sp"
+        android:textStyle="bold" android:id="@+id/O_Timer" >
+    </androidx.appcompat.widget.AppCompatTextView>
 </androidx.appcompat.widget.LinearLayoutCompat>
