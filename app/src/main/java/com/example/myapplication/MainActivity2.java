@@ -1,5 +1,9 @@
 package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -9,7 +13,11 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class MainActivity2 extends AppCompatActivity {
@@ -29,7 +37,6 @@ public class MainActivity2 extends AppCompatActivity {
         XTimer = findViewById(R.id.X_Timer);
         OTimer = findViewById(R.id.O_Timer);
         setupUi();
-//        setTimer(totalMoves % 2 == 0);
     }
 
         View.OnClickListener buttonClickListener = new View.OnClickListener() {
@@ -39,11 +46,6 @@ public class MainActivity2 extends AppCompatActivity {
             ++totalMoves;
             boolean isZero = totalMoves % 2 == 0;
             current.setText(isZero ? "X" : "O");
-            try {
-                setTimer(isZero);
-            }catch(Exception e){
-                Log.d("error" ,String.valueOf(e));
-            }
                 int row = isZero ? 0 : 1 ;
                 pattern[row][isZero ? (totalMoves / 2) - 1 : (totalMoves - 1) / 2] =
                         layout.indexOfChild(view) + 1;
@@ -61,9 +63,11 @@ public class MainActivity2 extends AppCompatActivity {
                             Button child = (Button) layout.getChildAt(i);
                             child.setText("");
                         }
+                        return;
                     }
                 }
             }
+            setTimer(isZero);
         }
     };
 
@@ -86,17 +90,21 @@ public class MainActivity2 extends AppCompatActivity {
             }
             @Override
             public void onFinish() {
-                autoSelect();
+                autoSelect( new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5)));
             }};
       countDownTimer.start();
     }
 
-    private void autoSelect() {
+    private void autoSelect(ArrayList<Integer> indexes) {
         Random random = new Random();
-        int index = random.nextInt(8 - 1 + 1) + 1;
+        int index = random.nextInt(indexes.size());
         Log.d("index" , String.valueOf(index));
         Button child = (Button) layout.getChildAt(index);
-        if(child.getText() == "") child.performClick(); else  autoSelect();
+        if(child.getText() == "") child.performClick();
+        else {
+            indexes.remove(index);
+            autoSelect(indexes);
+        }
     }
 
 
@@ -107,6 +115,12 @@ public class MainActivity2 extends AppCompatActivity {
                 btn.getLayoutParams().height = 300;
                 btn.getLayoutParams().width = 300;
                 btn.setTextSize(40);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    btn.setTextColor(getColor(R.color.white));
+                }
+                Typeface thinTypeface = Typeface.create("sans-serif-thin", Typeface.NORMAL);
+                btn.setTypeface(thinTypeface);
+                btn.setBackgroundResource(R.drawable.btn_bg);
                 btn.setOnClickListener(buttonClickListener);
                 layout.addView(btn);
             }
