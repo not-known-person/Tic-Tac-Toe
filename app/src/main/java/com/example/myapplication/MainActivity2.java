@@ -28,6 +28,7 @@ public class MainActivity2 extends AppCompatActivity {
     TextView XTimer ;
     TextView OTimer;
     CountDownTimer countDownTimer ;
+    ArrayList<Integer> indexes = new ArrayList<>(Arrays.asList(0,1, 2, 3, 4, 5,6,7,8));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,8 @@ public class MainActivity2 extends AppCompatActivity {
         public void onClick(View view) {
             Button current = (Button) view;
             ++totalMoves;
+            indexes.remove(indexes.indexOf(layout.indexOfChild(view)));
+            Log.d("indexes-new" , String.valueOf(indexes));
             boolean isZero = totalMoves % 2 == 0;
             current.setText(isZero ? "X" : "O");
                 int row = isZero ? 0 : 1 ;
@@ -57,24 +60,30 @@ public class MainActivity2 extends AppCompatActivity {
                     if (isMatched) {
                         Toast.makeText(getApplicationContext(), (row == 0 ? "X" :
                                 "O") + " won", Toast.LENGTH_SHORT).show();
-                        pattern = new int[2][5];
-                        totalMoves = 0;
-                        for (int i = 0; i < layout.getChildCount(); i++) {
-                            Button child = (Button) layout.getChildAt(i);
-                            child.setText("");
-                        }
+                        resetAllIndex();
                         return;
+                    }
+                    if (indexes.isEmpty()){
+                        resetAllIndex();
+                        Toast.makeText(getApplicationContext(), "Draw", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
-            setTimer(isZero);
+            setTimer(isZero , indexes);
         }
     };
-
-    private void setTimer(boolean position ) {
+private void resetAllIndex(){
+    pattern = new int[2][5];
+    indexes = new ArrayList<>(Arrays.asList(0,1, 2, 3, 4, 5,6,7,8));
+    totalMoves = 0;
+    for (int i = 0; i < layout.getChildCount(); i++) {
+        Button child = (Button) layout.getChildAt(i);
+        child.setText("");
+    }
+}
+    private void setTimer(boolean position , ArrayList<Integer> indexes ) {
         if (countDownTimer != null) {
             countDownTimer.cancel();
-
         }
        countDownTimer =  new CountDownTimer(5000,1000) {
             @Override
@@ -90,21 +99,18 @@ public class MainActivity2 extends AppCompatActivity {
             }
             @Override
             public void onFinish() {
-                autoSelect( new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5)));
+                autoSelect(indexes);
             }};
       countDownTimer.start();
     }
 
-    private void autoSelect(ArrayList<Integer> indexes) {
+    private void autoSelect( ArrayList<Integer> indexes) {
         Random random = new Random();
-        int index = random.nextInt(indexes.size());
+        int index = random.nextInt(indexes.size()-1);
+        Log.d("auto", String.valueOf(indexes));
         Log.d("index" , String.valueOf(index));
-        Button child = (Button) layout.getChildAt(index);
-        if(child.getText() == "") child.performClick();
-        else {
-            indexes.remove(index);
-            autoSelect(indexes);
-        }
+        Button child = (Button) layout.getChildAt(indexes.get(index));
+        child.performClick();
     }
 
 
@@ -118,8 +124,8 @@ public class MainActivity2 extends AppCompatActivity {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     btn.setTextColor(getColor(R.color.white));
                 }
-                Typeface thinTypeface = Typeface.create("sans-serif-thin", Typeface.NORMAL);
-                btn.setTypeface(thinTypeface);
+//                Typeface thinTypeface = Typeface.create("sans-serif-thin", Typeface.NORMAL);
+//                btn.setTypeface(thinTypeface);
                 btn.setBackgroundResource(R.drawable.btn_bg);
                 btn.setOnClickListener(buttonClickListener);
                 layout.addView(btn);
