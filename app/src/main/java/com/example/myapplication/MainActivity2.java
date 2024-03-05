@@ -1,9 +1,8 @@
 package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
-import android.graphics.Color;
-import android.graphics.Typeface;
+import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -13,11 +12,8 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 
 public class MainActivity2 extends AppCompatActivity {
@@ -29,6 +25,9 @@ public class MainActivity2 extends AppCompatActivity {
     TextView OTimer;
     CountDownTimer countDownTimer ;
     ArrayList<Integer> indexes = new ArrayList<>(Arrays.asList(0,1, 2, 3, 4, 5,6,7,8));
+    MediaPlayer soundEffect ;
+    MediaPlayer winEffect ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +36,16 @@ public class MainActivity2 extends AppCompatActivity {
         layout = findViewById(R.id.secondary_layout);
         XTimer = findViewById(R.id.X_Timer);
         OTimer = findViewById(R.id.O_Timer);
+        soundEffect = MediaPlayer.create( MainActivity2.this , R.raw.uiclick);
+        winEffect = MediaPlayer.create(MainActivity2.this , R.raw.clickeffect);
         setupUi();
     }
 
         View.OnClickListener buttonClickListener = new View.OnClickListener() {
-        @Override
+
+            @Override
         public void onClick(View view) {
+            soundEffect.start();
             Button current = (Button) view;
             ++totalMoves;
             indexes.remove(indexes.indexOf(layout.indexOfChild(view)));
@@ -60,6 +63,7 @@ public class MainActivity2 extends AppCompatActivity {
                     if (isMatched) {
                         Toast.makeText(getApplicationContext(), (row == 0 ? "X" :
                                 "O") + " won", Toast.LENGTH_SHORT).show();
+                        winEffect.start();
                         resetAllIndex();
                         return;
                     }
