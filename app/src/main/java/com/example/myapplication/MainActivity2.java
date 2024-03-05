@@ -2,6 +2,7 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -38,6 +39,9 @@ public class MainActivity2 extends AppCompatActivity {
         OTimer = findViewById(R.id.O_Timer);
         soundEffect = MediaPlayer.create( MainActivity2.this , R.raw.uiclick);
         winEffect = MediaPlayer.create(MainActivity2.this , R.raw.clickeffect);
+        Intent intent = getIntent();
+        String message = intent.getStringExtra("players");
+        int intValue = intent.getIntExtra("token", 0);
         setupUi();
     }
 
@@ -110,7 +114,7 @@ private void resetAllIndex(){
 
     private void autoSelect( ArrayList<Integer> indexes) {
         Random random = new Random();
-        int index = random.nextInt(indexes.size()-1);
+        int index = random.nextInt(indexes.size() != 1 ? indexes.size() -1 : indexes.size() );
         Log.d("auto", String.valueOf(indexes));
         Log.d("index" , String.valueOf(index));
         Button child = (Button) layout.getChildAt(indexes.get(index));
