@@ -16,7 +16,7 @@
         android:layout_gravity="center" android:textSize="35sp" android:textStyle="bold"
         android:layout_marginBottom="30dp" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" android:text="Players" android:textStyle="bold" />
     <Spinner android:layout_height="wrap_content" android:layout_width="wrap_content"
@@ -28,7 +28,7 @@
         android:paddingVertical="5dp"
         android:popupBackground="@color/white"
        />
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" android:text="Choose token" android:textStyle="bold" />
     <Spinner android:layout_height="wrap_content" android:layout_width="wrap_content"
@@ -39,6 +39,16 @@
         android:paddingHorizontal="50dp"
         android:paddingVertical="5dp"
         android:popupBackground="@color/white"
+        />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:text="Time limit" android:textStyle="bold" />
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/time"
+        android:hint="in sec"
+        android:inputType="number"
         />
 <androidx.appcompat.widget.AppCompatButton
     android:id="@+id/start"

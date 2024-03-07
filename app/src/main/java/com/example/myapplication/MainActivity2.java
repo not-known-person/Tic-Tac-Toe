@@ -31,6 +31,7 @@ public class MainActivity2 extends AppCompatActivity {
     MediaPlayer winEffect ;
     String players ;
     String token ;
+    String timeLimit ;
 
 
     @Override
@@ -45,6 +46,7 @@ public class MainActivity2 extends AppCompatActivity {
         Intent intent = getIntent();
         players = intent.getStringExtra("players");
         token = intent.getStringExtra("token");
+        timeLimit = intent.getStringExtra("timeLimit");
         setupUi();
     }
 
@@ -55,7 +57,7 @@ public class MainActivity2 extends AppCompatActivity {
             soundEffect.start();
             Button current = (Button) view;
             ++totalMoves;
-            indexes.remove(indexes.indexOf(layout.indexOfChild(view)));
+            indexes.remove((Integer) layout.indexOfChild(view));
             Log.d("indexes-new" , String.valueOf(indexes));
             boolean isEven = totalMoves % 2 == 0;
             current.setText(isEven ? Objects.equals(token, "X") ?"O":"X" : token);
@@ -92,13 +94,15 @@ private void resetAllIndex(){
         Button child = (Button) layout.getChildAt(i);
         child.setText("");
     }
+    countDownTimer.cancel();
 }
     private void setTimer(boolean position , ArrayList<Integer> indexes ) {
         if (countDownTimer != null) {
             countDownTimer.cancel();
         }
-       countDownTimer =  new CountDownTimer(Objects.equals(position ? Objects.equals(token,
-               "X") ? "O" : "X" : token, token) ? 0 : 5000,1000) {
+       countDownTimer =  new CountDownTimer((Objects.equals(position ? Objects.equals(token,
+               "X") ? "O" : "X" : token, token) && players.equals("1")) ? 0 :
+               (Integer.parseInt(timeLimit)* 1000L),1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 String timerText = String.format("%02d:%02d", millisUntilFinished / 1000 / 60, millisUntilFinished / 1000 % 60);
