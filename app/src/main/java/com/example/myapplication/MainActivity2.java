@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Random;
 
 public class MainActivity2 extends AppCompatActivity {
@@ -28,6 +29,8 @@ public class MainActivity2 extends AppCompatActivity {
     ArrayList<Integer> indexes = new ArrayList<>(Arrays.asList(0,1, 2, 3, 4, 5,6,7,8));
     MediaPlayer soundEffect ;
     MediaPlayer winEffect ;
+    String players ;
+    String token ;
 
 
     @Override
@@ -40,8 +43,8 @@ public class MainActivity2 extends AppCompatActivity {
         soundEffect = MediaPlayer.create( MainActivity2.this , R.raw.uiclick);
         winEffect = MediaPlayer.create(MainActivity2.this , R.raw.clickeffect);
         Intent intent = getIntent();
-        String message = intent.getStringExtra("players");
-        int intValue = intent.getIntExtra("token", 0);
+        players = intent.getStringExtra("players");
+        token = intent.getStringExtra("token");
         setupUi();
     }
 
@@ -54,10 +57,10 @@ public class MainActivity2 extends AppCompatActivity {
             ++totalMoves;
             indexes.remove(indexes.indexOf(layout.indexOfChild(view)));
             Log.d("indexes-new" , String.valueOf(indexes));
-            boolean isZero = totalMoves % 2 == 0;
-            current.setText(isZero ? "X" : "O");
-                int row = isZero ? 0 : 1 ;
-                pattern[row][isZero ? (totalMoves / 2) - 1 : (totalMoves - 1) / 2] =
+            boolean isEven = totalMoves % 2 == 0;
+            current.setText(isEven ? Objects.equals(token, "X") ?"O":"X" : token);
+                int row = isEven ? 0 : 1 ;
+                pattern[row][isEven ? (totalMoves / 2) - 1 : (totalMoves - 1) / 2] =
                         layout.indexOfChild(view) + 1;
             if(totalMoves >= 4){
                 int[] patterns = pattern[row];
@@ -65,8 +68,8 @@ public class MainActivity2 extends AppCompatActivity {
                     boolean isMatched = Arrays.stream(positivePatterns)
                             .anyMatch(array -> Arrays.stream(array).allMatch(val -> Arrays.stream(patterns).anyMatch(x -> x == val)));
                     if (isMatched) {
-                        Toast.makeText(getApplicationContext(), (row == 0 ? "X" :
-                                "O") + " won", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), (isEven ? Objects.equals(token,
+                                "X") ?"O":"X" : token )+ " won", Toast.LENGTH_SHORT).show();
                         winEffect.start();
                         resetAllIndex();
                         return;
@@ -74,10 +77,11 @@ public class MainActivity2 extends AppCompatActivity {
                     if (indexes.isEmpty()){
                         resetAllIndex();
                         Toast.makeText(getApplicationContext(), "Draw", Toast.LENGTH_SHORT).show();
+                        return;
                     }
                 }
             }
-            setTimer(isZero , indexes);
+            setTimer(isEven , indexes);
         }
     };
 private void resetAllIndex(){
@@ -93,7 +97,8 @@ private void resetAllIndex(){
         if (countDownTimer != null) {
             countDownTimer.cancel();
         }
-       countDownTimer =  new CountDownTimer(5000,1000) {
+       countDownTimer =  new CountDownTimer(Objects.equals(position ? Objects.equals(token,
+               "X") ? "O" : "X" : token, token) ? 0 : 5000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 String timerText = String.format("%02d:%02d", millisUntilFinished / 1000 / 60, millisUntilFinished / 1000 % 60);

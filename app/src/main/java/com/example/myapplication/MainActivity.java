@@ -36,12 +36,15 @@ Button btn;
         ArrayAdapter<String> tokensAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_dropdown_item, tokens);
         tokensSpinner.setAdapter(tokensAdapter);
+        playersSpinner.setSelection(0);
+        tokensSpinner.setSelection(0);
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, MainActivity2.class);
-                intent.putExtra("players",  (String) playersSpinner.getSelectedItem());
-                intent.putExtra("token",  (String) tokensSpinner.getSelectedItem());
+                intent.putExtra("players",  String.valueOf(playersSpinner.getSelectedItem()));
+                intent.putExtra("token", String.valueOf(tokensSpinner.getSelectedItem()));
 //                intent.putExtra("time",  (String) time.getSelectedItem());
                 startActivity(intent);
             }
