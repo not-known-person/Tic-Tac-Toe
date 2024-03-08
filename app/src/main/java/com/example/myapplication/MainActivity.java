@@ -49,7 +49,6 @@ EditText timeInput;
                 intent.putExtra("players",  String.valueOf(playersSpinner.getSelectedItem()));
                 intent.putExtra("token", String.valueOf(tokensSpinner.getSelectedItem()));
                 intent.putExtra("timeLimit",   String.valueOf(timeInput.getText()));
-//                Log.d("lol" , String.valueOf(timeInput.getText()));
                 startActivity(intent);
             }
         });

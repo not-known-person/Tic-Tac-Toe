@@ -48,5 +48,17 @@
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold" />
+<androidx.appcompat.widget.AppCompatButton
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:drawableLeft="@drawable/baseline_home_24"
+    android:id="@+id/home"
+    />
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawableLeft="@drawable/baseline_restart_alt_24"
+            android:id="@+id/restart"
+            />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </RelativeLayout>

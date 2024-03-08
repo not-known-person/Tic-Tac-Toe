@@ -32,7 +32,8 @@ public class MainActivity2 extends AppCompatActivity {
     String players ;
     String token ;
     String timeLimit ;
-
+    Button homeBtn;
+    Button restartBtn ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,8 @@ public class MainActivity2 extends AppCompatActivity {
         layout = findViewById(R.id.secondary_layout);
         XTimer = findViewById(R.id.X_Timer);
         OTimer = findViewById(R.id.O_Timer);
+        restartBtn = findViewById(R.id.restart);
+        homeBtn = findViewById(R.id.home);
         soundEffect = MediaPlayer.create( MainActivity2.this , R.raw.uiclick);
         winEffect = MediaPlayer.create(MainActivity2.this , R.raw.clickeffect);
         Intent intent = getIntent();
@@ -50,6 +53,25 @@ public class MainActivity2 extends AppCompatActivity {
         setupUi();
     }
 
+restartBtn.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            restartBtn();
+        }
+    });
+homeBtn.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+Intent back = new Intent(MainActivity2.this , MainActivity.class);
+startActivity(back);
+        }
+    });
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        resetAllIndex();
+    }
         View.OnClickListener buttonClickListener = new View.OnClickListener() {
 
             @Override
@@ -83,7 +105,10 @@ public class MainActivity2 extends AppCompatActivity {
                     }
                 }
             }
-            setTimer(isEven , indexes);
+//            if(!isMatched && !indexes.isEmpty()){
+                setTimer(isEven , indexes);
+//            }
+
         }
     };
 private void resetAllIndex(){
@@ -94,7 +119,9 @@ private void resetAllIndex(){
         Button child = (Button) layout.getChildAt(i);
         child.setText("");
     }
-    countDownTimer.cancel();
+    if (countDownTimer != null) {
+        countDownTimer.cancel();
+    }
 }
     private void setTimer(boolean position , ArrayList<Integer> indexes ) {
         if (countDownTimer != null) {
